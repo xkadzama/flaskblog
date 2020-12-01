@@ -1,0 +1,205 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
+
+
+
+body {
+	background-color: #f2f2f2;
+}
+
+.bg1 {
+	height: 130px;
+	background-color: white;
+}
+
+.wrap1 {
+	margin: auto;
+	width: 1140px;
+	
+}
+
+
+header {
+	display: flex;
+	justify-content: space-between;
+	height: 130px;
+	padding-top: 15px;
+
+}
+
+
+a {
+	text-decoration: none;
+}
+
+
+.logo {
+	width: 212px;
+	height: 80px;
+	background-color: #00EBB2;
+	text-align: center;
+	padding-top: 25px;
+	margin-top: 10px;
+	border-radius: 7px;
+}
+
+
+.logo span {
+	font-size: 24px;
+	color: white;
+	font-family: 'Rubik', sans-serif;
+
+}
+
+
+
+
+
+
+nav ul {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40px;
+
+}
+
+nav ul li {
+	margin-right: 20px;
+	list-style-type: none;
+	font-family: 'Rubik', sans-serif;
+
+}
+
+
+
+nav ul li a {
+	color: #979797;
+
+}
+
+
+
+.panel ul {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 40px;
+
+}
+
+.panel ul li {
+	margin-right: 20px;
+	list-style-type: none;
+	font-family: 'Rubik', sans-serif;
+
+}
+
+
+.panel ul li a {
+	color: #979797;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.wrap2 {
+	margin: auto;
+	width: 1140px;
+	
+}
+
+
+
+.div_img img {
+	width: 1140px;
+	height: 650px;
+	margin-top: 100px;
+	border-radius: 10px;
+
+}
+
+
+
+
+
+
+
+
+
+.wrap3 {
+	margin: auto;
+	width: 1140px;
+	
+}
+
+
+
+.under_wrap3 {
+	width: 1000px;
+	background-color: white;
+	margin: auto;
+	margin-top: -3px;
+	padding-top: 5px;
+	height: 1500px; 
+	/*высота для увеличения места постов*/
+}
+
+
+
+
+.title {
+	text-align: center;
+	margin-top: 60px;
+}
+
+
+.title span {
+	font-family: 'Rubik', sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+
+
+
+.under_title {
+	width: 250px;
+	display: flex;
+	justify-content: space-between;
+	margin: auto;
+	margin-top: 20px;
+	font-family: 'Rubik', sans-serif;
+	color:  #979797;
+}
+
+
+
+
+.post {
+	width: 800px;
+	word-wrap: break-word;
+	margin: auto;
+	margin-top: 25px;
+	font-family: 'Rubik', sans-serif;
+	color:  #979797;
+	line-height: 27px;
+	
+}

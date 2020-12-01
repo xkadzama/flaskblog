@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Регистрация</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<form method="POST", action='{{url_for("register")}}'>
+		{{ form.hidden_tag() }}
+
+		
+		{{ form.email.label }}
+		{% if form.email.errors %}
+			{{ form.email }} 
+			{% for error in form.email.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.email }}
+		{% endif %}
+
+
+		{{ form.username.label }}
+		{% if form.username.errors %}
+			{{ form.username }} 
+			{% for error in form.username.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.username }}
+		{% endif %}
+
+
+
+		{{ form.password.label }}
+		{% if form.password.errors %}
+			{{ form.password }} 
+			{% for error in form.password.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.password }}
+		{% endif %}
+
+
+
+		{{ form.confirm_password.label }}
+		{% if form.confirm_password.errors %}
+			{{ form.confirm_password }} 
+			{% for error in form.confirm_password.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.confirm_password }}
+		{% endif %}
+
+
+		{{ form.submit.label }}
+		{% if form.submit.errors %}
+			{{ form.submit }} 
+			{% for error in form.submit.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.submit }}
+		{% endif %}
+
+
+	</form>
+</body>
+</html>

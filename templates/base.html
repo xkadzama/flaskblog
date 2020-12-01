@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Блог</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+
+<div class='bg1'>
+	<div class='wrap1'>
+	<header>
+		<div class='logo'>
+			<span> BLOG </span>
+		</div>
+
+		<nav>
+			<ul>
+				<li>
+					<a href='#'> HOME </a>
+				</li>
+				<li>
+					<a href='#'> ABOUT </a>
+				</li>
+				<li>
+					<a href='#'> CONTACT </a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class='panel'>
+			<ul>
+				<li>
+					<a href='#'> Войти </a>
+				</li>
+				<li>
+					<a href='#'> Регистрация </a>
+				</li>
+			</ul>
+		</div>
+	</header> 
+	</div>
+</div>
+
+<div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		{% for category, message in messages %}
+			{{message}}
+		{% endfor %}
+	{% endif %}
+	{% endwith %}
+</div>
+
+<div class='wrap2'>
+	<div class='content'>
+		<div class='div_img'>
+			<img src='static/pic.jpg'>
+		</div>
+	</div>
+</div>
+
+<div class='wrap3'>
+	<div class='under_wrap3'>
+		 	 {% for info in data %}
+		 <div class='title'>
+		 	<span> {{info.title}} </span>
+		 </div>
+
+
+		 <div class='under_title'>
+		 	<div class='date'> 
+		 		<span> {{info.date}} </span>
+		 	</div>
+		 	<div class='comments'>
+		 		<span> <a href='#'> {{info.count_comments}} comments </a> </span>
+		 	</div>
+		 </div>
+
+
+		 <div class='post'>
+		 <p>
+			{{info.post}}
+		 <p>
+		 </div>
+		 {% endfor %}
+
+		 
+	</div>
+</div>
+
+
+
+
+</body>
+</html>
