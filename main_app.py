@@ -1,12 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, flash
 from forms import RegistrationForm
-
+from models import db
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'si'
-
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+db.init_app(app)
 
 base = [
     {
@@ -31,14 +32,13 @@ base = [
 
 @app.route('/')
 def index():
+    db.create_all()
     return render_template('base.html', data=base)
 
 
 
 
-# @app.route('/about')
-# def about():
-#     return render_template('about.html')
+
 
 
 
