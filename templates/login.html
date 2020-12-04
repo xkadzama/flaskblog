@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Войти</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<form method="POST", action='{{url_for("login")}}'>
+		{{ form.hidden_tag() }}
+
+		{{ form.email.label }}
+		{% if form.email.errors %}
+			{{ form.email }} 
+			{% for error in form.email.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.email }}
+		{% endif %}
+
+
+        {{ form.password.label }}
+		{% if form.password.errors %}
+			{{ form.password }} 
+			{% for error in form.password.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.password }}
+		{% endif %}
+
+
+        {{ form.submit.label }}
+		{% if form.submit.errors %}
+			{{ form.submit }} 
+			{% for error in form.submit.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.submit }}
+		{% endif %}
+
+	</form>
+</body>
+</html>
