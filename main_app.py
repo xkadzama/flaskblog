@@ -38,7 +38,6 @@ base = [
 
 @app.route('/')
 def index():
-    db.create_all()
     
     return render_template('base.html', data=base)
 
@@ -54,10 +53,10 @@ def index():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        # hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        # user = User(username=form.username.data, email=form.email.data, password=hashed_password )
-        # db.session.add(user)
-        # db.session.commit()
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password )
+        db.session.add(user)
+        db.session.commit()
         flash('Аккаунт создан', 'success')
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
@@ -77,4 +76,6 @@ def login():
 
     return render_template('login.html', form=form)
 
-app.run(debug=True) 
+
+if __name__ == "__main__":
+    app.run(debug=True) 
