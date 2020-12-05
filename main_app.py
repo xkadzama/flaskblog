@@ -53,10 +53,14 @@ def index():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password )
-        db.session.add(user)
-        db.session.commit()
+        check_user = User.query.filter_by(username=form.username.data, email=form.email.data).first()
+        if check_user is None:
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            user = User(username=form.username.data, email=form.email.data, password=hashed_password )
+            db.session.add(user)
+            db.session.commit()
+        else:
+            return redirect(url_for('index'))
         flash('Аккаунт создан', 'success')
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
