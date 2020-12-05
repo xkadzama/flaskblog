@@ -3,14 +3,15 @@ from forms import RegistrationForm, LoginForm
 from models import db
 from flask_bcrypt import Bcrypt
 from models import *
+# from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'si'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-db.init_app(app)
+db = db.init_app(app)
 bcrypt = Bcrypt(app)
-
+# migrate = Migrate(app, db)
 
 base = [
     {
@@ -35,7 +36,7 @@ base = [
 
 @app.route('/')
 def index():
-    db.create_all()
+    
     return render_template('base.html', data=base)
 
 
@@ -63,13 +64,14 @@ def register():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     form = LoginForm()
+
     # post = Post(title='Forest', content='a love forest', user_id='1')
     # db.session.add(post)
     # db.session.commit()
-    user = User.query.filter_by(username='Xoce').first()
 
-    print(user.posts)
+    # user = User.query.filter_by(username='Xoce').first()
+    # print(user.posts)
 
     return render_template('login.html', form=form)
 
-app.run(debug=True)
+app.run(debug=True) 
