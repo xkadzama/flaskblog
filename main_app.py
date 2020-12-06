@@ -3,8 +3,9 @@ from forms import RegistrationForm, LoginForm
 from models import db
 from models import *
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 # from flask_migrate import Migrate
-
+login_manager = LoginManager(app)
 
 
 app = Flask(__name__)
@@ -13,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 db.init_app(app)
 bcrypt = Bcrypt(app)
+
 # migrate = Migrate(app, db)
 
 base = [
@@ -38,7 +40,6 @@ base = [
 
 @app.route('/')
 def index():
-    
     return render_template('base.html', data=base)
 
  
