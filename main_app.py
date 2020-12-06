@@ -46,21 +46,23 @@ def index():
 
 
 
-
-
-
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        check_user = User.query.filter_by(username=form.username.data, email=form.email.data).first()
-        if check_user is None:
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            user = User(username=form.username.data, email=form.email.data, password=hashed_password )
-            db.session.add(user)
-            db.session.commit()
-        else:
-            return redirect(url_for('index'))
+        # Один из вариантов выброса ошибки в случае если такой пользователь уже существует
+        # check_user = User.query.filter_by(username=form.username.data, email=form.email.data).first()
+        # if check_user is None:
+        #     hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        #     user = User(username=form.username.data, email=form.email.data, password=hashed_password )
+        #     db.session.add(user)
+        #     db.session.commit()
+        # else:
+        #     return redirect(url_for('index'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password )
+        db.session.add(user)
+        db.session.commit()
         flash('Аккаунт создан', 'success')
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
