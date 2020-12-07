@@ -5,7 +5,15 @@
 	<meta charset="utf-8">
 </head>
 <body>
-
+	<div>
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				{% for category, message in messages %}
+					{{message}}
+				{% endfor %}
+			{% endif %}
+			{% endwith %}
+	</div>
 	<form method="POST", action='{{url_for("login")}}'>
 		{{ form.hidden_tag() }}
 
@@ -28,6 +36,17 @@
 			{% endfor %}
 		{% else %}
 			{{ form.password }}
+		{% endif %}
+
+
+		{{ form.remember.label }}
+		{% if form.remember.errors %}
+			{{ form.remember }} 
+			{% for error in form.remember.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.remember }}
 		{% endif %}
 
 
