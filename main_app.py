@@ -1,10 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, flash
+from flask import Flask, render_template, redirect, url_for, flash, request
 from forms import RegistrationForm, LoginForm
 from models import db
 from models import *
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 # from flask_migrate import Migrate
 
 
@@ -17,6 +17,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message = 'Для доступа к аккаунту нужно авторизоваться'
+login_manager.login_message_category = 'info'
 # migrate = Migrate(app, db)
 
 
@@ -24,6 +27,9 @@ login_manager = LoginManager(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+    
 base = [
     {
         'title': 'Animal near me',
@@ -94,7 +100,8 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('index'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
             flash('Не правильный email или пароль', "danger ")
     return render_template('login.html', form=form)
@@ -105,6 +112,16 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
+
+
 
 
 
