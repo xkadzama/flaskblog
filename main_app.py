@@ -1,11 +1,11 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, AccountUpdateForm
 from models import db
 from models import *
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_login import login_user, logout_user, current_user, login_required
-# from flask_migrate import Migrate
+from flask_migrate import Migrate
 
 
 
@@ -20,7 +20,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message = 'Для доступа к аккаунту нужно авторизоваться'
 login_manager.login_message_category = 'info'
-# migrate = Migrate(app, db)
+migrate = Migrate(app, db)
 
 
 
@@ -53,7 +53,8 @@ base = [
 
 @app.route('/')
 def index():
-    return render_template('base.html', data=base, current_user=current_user)
+    
+    return render_template('base.html', data=base)
 
  
 
@@ -80,7 +81,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Аккаунт создан', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
 
@@ -119,7 +120,9 @@ def logout():
 @app.route('/account')
 @login_required
 def account():
-    return render_template('account.html')
+    form = AccountUpdateForm()
+    avatar = url_for('static', filename='profile_images/' + current_user.avatar)
+    return render_template('account.html', form=form, avatar=avatar)
 
 
 

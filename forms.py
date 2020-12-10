@@ -13,15 +13,15 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Регистрация')
 
 
-    def validate_username(self, username):
-        check_user = User.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError('Такой логин существует!')
+    # def validate_username(self, username):
+    #     check_user = User.query.filter_by(username=username.data).first()
+    #     if user:
+    #         raise ValidationError('Такой логин существует!')
 
-    def validate_username(self, email):
-        check_user = User.query.filter_by(email=email.data).first()
-        if email:
-            raise ValidationError('Такой Email существует!')
+    # def validate_username(self, email):
+    #     check_user = User.query.filter_by(email=email.data).first()
+    #     if email:
+    #         raise ValidationError('Такой Email существует!')
 
 
 
@@ -32,3 +32,27 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Запомнить')
     submit = SubmitField('Войти')
+
+
+
+class AccountUpdateForm(FlaskForm):
+    username = StringField('Login', validators=[DataRequired(), Length(min=2, max=20)])
+    email =  StringField('Email', validators=[DataRequired(), Email()])
+    # password = PasswordField('Password', validators=[DataRequired()])
+    # confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Обновить')
+
+
+    # def validate_username(self, username):
+    #     check_user = User.query.filter_by(username=username.data).first()
+    #     if user:
+    #         raise ValidationError('Такой логин существует!')
+
+    # def validate_username(self, email):
+    #     check_user = User.query.filter_by(email=email.data).first()
+    #     if email:
+    #         raise ValidationError('Такой Email существует!')
+
+
+
+

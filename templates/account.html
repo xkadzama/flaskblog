@@ -6,7 +6,11 @@
 </head>
 <body>
 	<div>
-        {{ current_user.username }}
+        <fieldset>
+			<legend>Профиль</legend>
+			<img src="{{ avatar }}" width="200" height="250">
+			<h2>{{ current_user.username }}</h2>
+		</fieldset>
     </div>
 </body>
 </html>
