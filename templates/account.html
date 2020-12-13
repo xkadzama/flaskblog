@@ -8,8 +8,60 @@
 	<div>
         <fieldset>
 			<legend>Профиль</legend>
-			<img src="{{ avatar }}" width="200" height="250">
+			<div>
+				{% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						{% for category, message in messages %}
+							{{message}}
+						{% endfor %}
+					{% endif %}
+					{% endwith %}
+				</div>
 			<h2>{{ current_user.username }}</h2>
+			<img src="{{ avatar }}" width="200" height="250">
+
+			<form method="POST" action="{{url_for('account')}}" enctype="multipart/form-data">
+			{{ form.hidden_tag() }}
+
+			{% if form.avatar.errors %}
+				<p>{{ form.avatar.label }}</p>
+				<p>{{ form.avatar}}</p>
+				{% for error in form.avatar.errors %}
+					{{error}}
+				{% endfor %}
+			{% else %}
+				<p>{{ form.avatar.label }}</p>
+				<p>{{ form.avatar}}</p>
+			{% endif %}
+
+
+			{% if form.username.errors %}
+				<p>{{ form.username.label }}</p>
+				<p>{{ form.username}}</p>
+				{% for error in form.username.errors %}
+					{{error}}
+				{% endfor %}
+			{% else %}
+				<p>{{ form.username.label }}</p>
+				<p>{{ form.username}}</p>
+			{% endif %}
+
+
+			{% if form.email.errors %}
+				<p>{{ form.email.label }}</p>
+				<p>{{ form.email}}</p>
+				{% for error in form.email.errors %}
+					{{error}}
+				{% endfor %}
+			{% else %}
+				<p>{{ form.email.label }}</p>
+				<p>{{ form.email}}</p>
+			{% endif %}
+
+
+
+			<p>{{form.submit}}</p>
+			</form>
 		</fieldset>
     </div>
 </body>

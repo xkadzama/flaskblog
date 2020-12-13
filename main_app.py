@@ -1,3 +1,6 @@
+import os
+import secrets
+from PIL import Image
 from flask import Flask, render_template, redirect, url_for, flash, request
 from forms import RegistrationForm, LoginForm, AccountUpdateForm
 from models import db
@@ -116,11 +119,35 @@ def logout():
 
 
 
+def save_avatar(avatar):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(avatar.filename)
+    avatar_name = random_hex + f_ext
+    avatar_path = os.path.join(app.root_path, 'static/profile_images', avatar_name)
+    avatar_size = (200, 250)
+    i = Image.open(avatar)
+    i.thumbnail(avatar_size)
+    i.save(avatar_path)
+    return avatar_name
 
-@app.route('/account')
+
+@app.route('/account', methods=['POST', 'GET'])
 @login_required
 def account():
     form = AccountUpdateForm()
+    if form.validate_on_submit():
+        if form.avatar.data:
+            avatar_file = save_avatar(form.avatar.data)
+            current_user.avatar = avatar_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Данные пользователя обновлены!', 'success')
+        redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        form.avatar.data = current_user.avatar
     avatar = url_for('static', filename='profile_images/' + current_user.avatar)
     return render_template('account.html', form=form, avatar=avatar)
 
