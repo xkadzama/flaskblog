@@ -2,7 +2,7 @@ import os
 import secrets
 from PIL import Image
 from flask import Flask, render_template, redirect, url_for, flash, request
-from forms import RegistrationForm, LoginForm, AccountUpdateForm
+from forms import RegistrationForm, LoginForm, AccountUpdateForm, PostForm
 from models import db
 from models import *
 from flask_bcrypt import Bcrypt
@@ -56,8 +56,8 @@ base = [
 
 @app.route('/')
 def index():
-    
-    return render_template('base.html', data=base)
+    posts = Post.query.all()
+    return render_template('base.html', posts=posts)
 
  
 
@@ -131,10 +131,11 @@ def save_avatar(avatar):
     return avatar_name
 
 
-@app.route('/account', methods=['POST', 'GET'])
+@app.route('/account/', methods=['POST', 'GET'])
 @login_required
 def account():
     form = AccountUpdateForm()
+    # user = User.query.get(user_id)
     if form.validate_on_submit():
         if form.avatar.data:
             avatar_file = save_avatar(form.avatar.data)
@@ -149,9 +150,52 @@ def account():
         form.email.data = current_user.email
         form.avatar.data = current_user.avatar
     avatar = url_for('static', filename='profile_images/' + current_user.avatar)
-    return render_template('account.html', form=form, avatar=avatar)
+    print(avatar)
+    return render_template('account1.html', form=form, avatar=avatar)
 
 
+
+
+@app.route('/post/new', methods=['POST', 'GET'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        print(current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Пост был создал!', 'succes')
+        redirect(url_for('index'))
+    
+    return render_template('create_post.html', form=form)
+
+
+
+
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', post=post)
+
+
+
+
+@login_required
+@app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    form = PostForm()
+    print(post_id)
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        # return redirect(url_for('post', post_id=post.id))
+    if request.method == 'GET':
+        form.title.data = post.title 
+        form.content.data = post.content 
+    return render_template('create_post.html', form=form, post=post)
 
 
 

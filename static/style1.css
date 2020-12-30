@@ -1,0 +1,237 @@
+* {
+	box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap');
+
+body {
+	background-color: #171C22;
+}
+
+.wrap1 {
+	margin: auto;
+	width: 1140px;
+}
+
+.error {
+	height: 2px;
+	width: 251px;
+	background-color: red;
+}
+
+
+.head {
+	margin-top: 30px;
+}
+
+.back_span:before {
+	content: url(images/arrow.png);
+	position: relative;
+	top: 3px;
+	right: 10px;
+	margin-left: 10px;
+
+}
+
+
+.head a {
+	font-family: 'Red Hat Display', sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 32px;
+	color: white;
+	transition: 1s linear;
+	text-decoration: none;
+
+}
+
+
+
+.profile_span {
+	margin-left: 35px;
+}
+
+
+
+
+.arrow {
+	background-image: url(static/arrow.png);
+	height: 25px;
+	width: 25px;
+	background-repeat: no-repeat;
+}
+
+
+
+.profile_span:hover {
+	border-bottom: 3px solid white;
+	
+
+}
+
+
+.back_span:hover {
+	color: #6A7C93;
+	
+
+}
+
+
+
+
+.ava {
+	width: 232px;
+	height: 287px;
+
+}
+
+
+
+.fio_block, .change_block {
+	background-color: #242E38;
+	width: 341px;
+	height: 208px;
+
+
+}
+
+
+.fio_block {
+	margin-right: 15px;
+
+}
+
+
+
+
+.mother_fio_change {
+	display: flex;
+	justify-content: space-between;
+	margin-right: 180px;
+	transition: 0.5s linear;
+}
+
+
+
+
+
+.mother_ava_fio_change {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+
+}
+
+
+
+
+.under_ava_form input {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+}
+
+
+.under_ava_form {
+	margin-top: 40px;
+	transition: 0.5s linear;
+}
+
+
+.submit_input:hover {
+	background-color: #3F5064;
+}
+
+
+.select_file:hover {
+	background-color: #3F5064;
+}
+
+.submit_input {
+	font-family: 'Red Hat Display', sans-serif;
+	font-size: 15px;
+	color: white;
+	background-color: #242E38; 
+	width: 232px;
+	height: 40px;
+	border: none;
+	padding-left: 100px;
+}
+
+/* input[type=file] {
+  display: none;
+} */
+
+.select_file {
+	font-family: 'Red Hat Display', sans-serif;
+	font-size: 15px;
+	display: block;
+	color: white;
+	background-color: #242E38; 
+	width: 232px;
+	height: 40px;
+	border: none;
+	text-align: center;
+	padding-top: 13px;
+
+}
+
+
+.text_input, .email_input, .password_input {
+	color: white;
+	padding-left: 10px;
+	font-family: 'Red Hat Display', sans-serif;
+	font-size: 12px;
+
+
+}
+
+
+.change_form input {
+	margin-top: 10px;
+	background-color: #3F5064; 
+	width: 251px;
+	height: 34px;
+	border: none;
+	color: white;
+	
+}
+
+.change_form {
+	padding-left: 45px;
+	padding-top: 10px;
+}
+
+
+.change_form p {
+	margin: 0px;
+	margin-top: 3px;
+}
+
+
+
+
+.fio_block {
+	font-family: 'Red Hat Display', sans-serif;
+	font-size: 36px;
+	line-height: 5px;
+	color: #FFFFFF;
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
+
+
+
+.location, .email {
+	margin: 0;
+	font-family: Red Hat Display;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 25px;
+	color: #FFFFFF;
+}
+
+

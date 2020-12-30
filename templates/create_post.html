@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cоздать пост</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+	<form method="POST", action='{{url_for("new_post")}}'>
+		{{ form.hidden_tag() }}
+
+        {{ form.title.label }}
+		{% if form.title.errors %}
+			{{ form.title }} 
+			{% for error in form.title.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.title }}
+		{% endif %}
+
+
+        {{ form.content.label }}
+		{% if form.content.errors %}
+			{{ form.content }} 
+			{% for error in form.content.errors %}
+				<p> {{ error }} </p>
+			{% endfor %}
+		{% else %}
+			{{ form.content }}
+        {% endif %}
+        
+
+        <p>{{form.submit}}</p>
+	</form>
+</body>
+</html>

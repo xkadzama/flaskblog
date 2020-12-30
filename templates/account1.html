@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PROFILE</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style1.css')}}">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class='wrap1'>
+		<div class='head'>
+			<!-- <div class='arrow'>
+			</div> -->
+			<a href='{{url_for("index")}}' class='back_span'> BACK </a>
+			<a href='{{url_for("account")}}' class='profile_span'> PROFILE </a>
+		</div>
+
+		<div class='mother_ava_fio_change'>
+			<img src="{{ avatar }}" class='ava'>
+			<div class='mother_fio_change'> 
+				<div class='fio_block'>
+					<p> {{ current_user.username }} </p>
+					<!-- <p> Kadzama </p> -->
+					<p class='location'> Grozny, Russia </p>
+					<p class='email'> email: {{ current_user.email }} </p>
+					
+
+				</div>
+
+				<div class='change_block'> 
+					<form method="POST" action="{{url_for('account')}}" enctype="multipart/form-data" class='change_form'>
+						{{ form.hidden_tag() }}
+						{% if form.username.errors %}
+							<p>{{ form.username(class_='text_input')}}</p>
+							{% for error in form.username.errors %}
+								<div class='error'></div>
+							{% endfor %}
+						{% else %}
+							<p>{{ form.username(class_='text_input')}}</p>
+						{% endif %}
+
+
+						{% if form.email.errors %}
+							<p>{{ form.email(class_='email_input')}}</p>
+							{% for error in form.email.errors %}
+								<div class='error'></div>
+							{% endfor %}
+						{% else %}						
+							<p>{{ form.email(class_='email_input')}}</p>
+						{% endif %}
+
+
+						{% if form.avatar.errors %}
+							<p>{{ form.avatar}}</p>
+							{% for error in form.avatar.errors %}
+								<div class='error'></div>
+							{% endfor %}
+						{% else %}						
+							<p>{{ form.avatar}}</p>
+						{% endif %}
+
+						<p>{{form.submit}}</p>
+
+						
+					</form>
+				</div>
+
+				<!-- <form method="POST" action="{{url_for('account')}}" enctype="multipart/form-data" class='change_form'>
+					{{ form.hidden_tag() }}
+					{% if form.avatar.errors %}
+					<p>{{ form.avatar}}</p>
+					{% for error in form.avatar.errors %}
+						{{error}}
+					{% endfor %}
+				{% else %}						
+					<p>{{ form.avatar}}</p>
+				{% endif %}
+			
+				<p>{{form.submit}}</p>
+				</form>
+				 -->
+			</div>
+		</div>
+
+		
+		
+
+
+	</div>
+</body>
+</html>

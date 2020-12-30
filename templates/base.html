@@ -33,6 +33,7 @@
 			<ul>
 				<li>
 					{% if current_user.is_authenticated %}
+						<a href='{{url_for("new_post")}}'> Создать пост </a>
 						<a href='{{url_for("account")}}'> Профиль </a>
 						<a href='{{url_for("logout")}}'> Выйти </a>
 				</li>
@@ -68,25 +69,26 @@
 
 <div class='wrap3'>
 	<div class='under_wrap3'>
-		 	 {% for info in data %}
+			  {% for post in posts %}
+			  <div>
+				  <img src="{{ url_for('static', filename='profile_images/' + post.author.avatar) }}"
+			  </div>
 		 <div class='title'>
-		 	<span> {{info.title}} </span>
+		 	<span> <a href="{{ url_for('post', post_id=post.id) }}">{{post.title}} </a> </span>
 		 </div>
 
 
 		 <div class='under_title'>
 		 	<div class='date'> 
-		 		<span> {{info.date}} </span>
+		 		<span> {{post.date_posted}} </span>
 		 	</div>
-		 	<div class='comments'>
-		 		<span> <a href='#'> {{info.count_comments}} comments </a> </span>
-		 	</div>
+		 	
 		 </div>
 
 
 		 <div class='post'>
 		 <p>
-			{{info.post}}
+			{{post.content}}
 		 <p>
 		 </div>
 		 {% endfor %}

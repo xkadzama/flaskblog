@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cоздать пост</title>
+	<meta charset="utf-8">
+</head>
+<body>
+    
+    {% if post.author == current_user %}
+        <a href='{{ url_for("update_post", post_id=post.id) }}'> Изменить </a>
+    {% endif %}
+    <p>{{ post.title }}</p>
+    <p>{{ post.content }}</p>
+
+</body>
+</html>

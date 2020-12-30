@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, EqualTo, Email, ValidationError
 import email_validator
 from models import *
@@ -38,12 +38,12 @@ class LoginForm(FlaskForm):
 
 
 class AccountUpdateForm(FlaskForm):
-    username = StringField('Login', validators=[DataRequired(), Length(min=2, max=20)])
-    email =  StringField('Email', validators=[DataRequired(), Email()])
-    avatar = FileField('Фото профиля', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    username = StringField('Login', validators=[DataRequired(), Length(min=2, max=20)], render_kw={"placeholder": "username"})
+    email =  StringField('Email', validators=[DataRequired(), Email()], render_kw={"placeholder": "email"})
+    avatar = FileField('SELECT FILE', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     # password = PasswordField('Password', validators=[DataRequired()])
     # confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Обновить')
+    submit = SubmitField('UPDATE')
 
 
     def validate_username(self, username):
@@ -61,3 +61,8 @@ class AccountUpdateForm(FlaskForm):
 
 
 
+
+class PostForm(FlaskForm):
+    title = StringField('Заголовок', validators=[DataRequired(), Length(min=2, max=20)])
+    content = TextAreaField('Контент', validators=[DataRequired()])
+    submit = SubmitField('Создать пост')
