@@ -191,7 +191,7 @@ def update_post(post_id):
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
-        # return redirect(url_for('post', post_id=post.id))
+        return redirect(url_for('post', post_id=post.id))
     if request.method == 'GET':
         form.title.data = post.title 
         form.content.data = post.content 
