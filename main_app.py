@@ -181,8 +181,9 @@ def post(post_id):
 
 
 
-@login_required
+
 @app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
+@login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
     form = PostForm()
@@ -196,6 +197,19 @@ def update_post(post_id):
         form.title.data = post.title 
         form.content.data = post.content 
     return render_template('create_post.html', form=form, post=post)
+
+
+
+@app.route('/post/<int:post_id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_post(post_id):
+    print(post_id)
+    if request.method == 'POST':
+        Post.query.filter_by(id=post_id).delete()
+        db.session.commit()
+        flash('Пост удалён!', 'success')
+        return redirect(url_for('index'))
+    return render_template('post.html', post=post)
 
 
 
