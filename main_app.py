@@ -56,7 +56,21 @@ base = [
 
 @app.route('/')
 def index():
-    posts = Post.query.all()
+    '''Без request.args мы не можем менять номера page непосредственно в URL, 
+    только задавать в ручную в параметрах paginate(page=1/2/3 и тд), а с ним можем напрямую
+    менять цифры в URL и переходить по страницам ?page=1/2/3  и тд.
+    '''
+    page = request.args.get('page')
+    ''' Если полученные данные равны строковой цифре, то делаем их int, иначе если это буквы
+    или другие символы, то задаём по стандарту 1 страницу. Это на тот случай, 
+    если пользователь
+    решит поиграться'''
+    if page and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+        
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('base.html', posts=posts)
 
  
