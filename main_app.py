@@ -227,5 +227,15 @@ def delete_post(post_id):
 
 
 
+@app.route('/<int:user_id>/posts', methods=['GET', 'POST'])
+@login_required
+def user_posts(user_id):
+    posts = Post.query.filter_by(user_id=user_id).all()
+    return render_template('user_posts.html', posts=posts)
+
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True) 

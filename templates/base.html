@@ -74,10 +74,10 @@
 				  <img src="{{ url_for('static', filename='profile_images/' + post.author.avatar) }}"
 			  </div>
 		 <div class='title'>
-		 	<span> <a href="{{ url_for('post', post_id=post.id) }}">{{post.title}} </a> </span>
+			 <span> <a href="{{ url_for('post', post_id=post.id) }}">{{post.title}} </a> </span>
 		 </div>
 
-
+		 <a href='{{ url_for("user_posts", user_id=post.author.id) }}'> {{ post.author }}</a>
 		 <div class='under_title'>
 		 	<div class='date'> 
 		 		<span> {{post.date_posted.strftime('%Y-%m-%d')}} </span>
